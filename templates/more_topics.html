@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+     
+     <form action="" method="get">{% csrf_token %}
+        <input type="text" name="q" placeholder="Search for topics">
+     </form>
+    <div>
+        {% for topic in topics %}
+
+            <a href="{% url 'home'%}?q = {{ topic.name }}">{{ topic.name }}</a><span>({{ topic.room_set.all.count}})</span><br>
+
+        {% endfor %}
+    </div>
+
+{% endblock %}

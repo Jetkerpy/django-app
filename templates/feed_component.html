@@ -1,0 +1,31 @@
+
+
+    {% if room_count != 0 %}
+
+    <h4>{{ room_count }} rooms available </h4>
+    <a href="{% url 'create-room' %}">Create Room</a>
+
+    {% for room in rooms %}
+    
+        <div class="mb-4">
+            {% if request.user == room.host %}
+
+                <a href="{% url 'update-room' room.pk %}">Update Room</a>
+                <a href="{% url 'delete-room' room.pk %}" class="btn btn-danger">Delete Room</a>
+            
+            {% endif %}
+            <span><a href="{% url 'profile' room.host.pk %}">@{{ room.host.username }}</a></span>
+            <h5>{{ room.pk }} - <a href="{% url 'room' room.pk %}">{{ room.name }}</a></h5>
+            <small>
+                {{ room.topic.name }}
+            </small>
+        </div>
+        <hr>
+    
+
+    {% endfor %}
+
+    {% else %}
+        <h2>Hazirshe magliwmat joq</h2>
+
+    {% endif %}

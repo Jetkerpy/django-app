@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+    <h3>{{ user.username }}</h3>
+    {% if request.user == user %}
+        <h2 class="display-5">
+            <a href="{% url 'update-user' user.pk %}">Edit Profile</a>
+        </h2>
+    {% endif %}
+
+    <div class="row">
+        <div class="col-md-3">
+            {% include 'topic_component.html' %}
+        </div>
+        <div class="col-md-6">
+            {% include 'feed_component.html' %}
+        </div>
+        <div class="col-md-3">
+            {% include 'activity_component.html' %}
+        </div>
+    </div>
+{% endblock content %}
