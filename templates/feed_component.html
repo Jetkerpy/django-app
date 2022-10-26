@@ -1,4 +1,9 @@
 
+    <h3 class="font-monospace">{{ event.name }}</h3>
+    <p class="lead mb-5" data-time="{{ event.when }}" id="time">Time: {{ event.when|date}} </p>
+    <div id="time-box">Time left: </div>
+
+
 
     {% if room_count != 0 %}
 
@@ -29,3 +34,38 @@
         <h2>Hazirshe magliwmat joq</h2>
 
     {% endif %}
+
+
+    <script>
+        const time = document.getElementById('time')
+        const time_box = document.getElementById('time-box')
+
+        const EventDate = Date.parse(time.textContent) //milisecond
+        // console.log(EventDate)
+
+        setInterval(()=>{
+            const now = new Date().getTime() //also miliseconds
+            // console.log(now)
+
+            const different = EventDate - now
+            // console.log(different)
+
+            const d = Math.floor(EventDate/ (1000 * 60 * 60 * 24) - (now / (1000 * 60 * 60 * 24)))
+            
+            const h = Math.floor((EventDate/ (1000 * 60 * 60) - (now / (1000 * 60 * 60))) % 24)
+            const m = Math.floor((EventDate/ (1000 * 60) - (now / (1000 * 60))) % 60)
+            const s = Math.floor((EventDate/ (1000) - (now / (1000))) % 60)
+
+
+            if (different > 0){
+            time_box.innerHTML = d + 'days; ' + h + ' hour; ' + m + 'minutes; ' + s + 'seconds'
+            
+        }
+        }, 1000)
+
+        
+
+        
+
+        
+    </script>

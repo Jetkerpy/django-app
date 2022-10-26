@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
-from .models import Room, Topic, Message
+from .models import Room, Topic, Message, Event
 from .forms import RoomForm, UserForm
 from django.db.models import Q
 from django.contrib.auth.models import User
@@ -146,10 +146,18 @@ def home(request):
     room_count = rooms.count()
 
     topic = Topic.objects.all()[:5]
+    event = Event.objects.get(id = 1)
+    
 
     room_message = Message.objects.filter(Q(room__topic__name__icontains = q))[:5]
 
-    context = {'rooms': rooms, 'topics': topic, 'room_count': room_count, "room_message": room_message}
+    context = {
+        'rooms': rooms, 
+        'topics': topic, 
+        'room_count': room_count, 
+        "room_message": room_message,
+        'event': event
+        }
     return render(request, 'home.html', context)
 
 
